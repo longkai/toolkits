@@ -15,6 +15,11 @@ if ([
     $env.MANPATH = $env.MANPATH? | default '' | split row (char esep) | prepend [$'($env.HOMEBREW_PREFIX)/share/man']
     $env.INFOPATH = $env.INFOPATH? | default '' | split row (char esep) | prepend [$'($env.HOMEBREW_PREFIX)/share/info']
 
+    $env.CLAUDE_CODE_SUBAGENT_MODEL = "claude-deepseek-v4-flash[1m]"
+    $env.ANTHROPIC_DEFAULT_HAIKU_MODEL = "claude-deepseek-v4-flash[1m]"
+    $env.ANTHROPIC_DEFAULT_SONNET_MODEL = "claude-deepseek-v4-flash[1m]"
+    $env.ANTHROPIC_DEFAULT_OPUS_MODEL = "claude-deepseek-v4-flash[1m]"
+
     $env.PATH = [
         $'($env.HOME)/mambaforge/bin'
         $'($env.HOMEBREW_PREFIX)/bin'

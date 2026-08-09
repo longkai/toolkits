@@ -35,6 +35,10 @@ command = /opt/homebrew/bin/nu
 # 精确 family 名已用 `ghostty +list-fonts` 校验。自带 Nerd Font 图标，
 # 供 starship / Claude Code 等 CLI 的图标正常显示。
 font-family = Cascadia Code NF
+# 中文回退：Cascadia Code NF 的 CJK 覆盖有限，显式指定中文字体作回退，
+# 让中文标点/汉字的字重与基线更协调（font-family 可重复，首个为主字体，
+# 其后按序作缺字回退）。若无 PingFang SC 可换 "Hiragino Sans GB" 等系统中文字体。
+font-family = PingFang SC
 font-size = 15
 
 # 连字（Ligatures）：Cascadia Code 默认启用 calt/liga（如 -> == != >= 会合并渲染）。
@@ -167,8 +171,23 @@ mouse-hide-while-typing = true
 shell-integration = detect
 shell-integration-features = cursor,sudo,title
 
-# 划词即复制到系统剪贴板。
-copy-on-select = clipboard
+# 命令跑完弹通知：fire 一个长任务后可切去别的窗口，跑完自动提醒（依赖上面
+# OSC 133 提示符标记，本仓库 nushell/config.nu 已开启）。
+#   unfocused = 仅当 Ghostty 窗口不在前台时才通知，不打扰当前操作。
+# 搭配 -after 过滤掉短命令，只对耗时 ≥10s 的命令通知（回看 Claude Code 长任务超顺手）。
+# 注：这几个 key 为较新特性；若 `ghostty +show-config` 报未知，升级到支持的版本即可。
+notify-on-command-finish = unfocused
+notify-on-command-finish-after = 10s
+
+# 关窗二次确认：防止 Cmd+W 误关正在跑 Claude Code 的窗口/分屏。
+# Ghostty 只在「有进程正在运行」时才提示，纯 shell 提示符下直接关，不打扰。
+confirm-close-surface = true
+
+# 关闭「划词即复制」：选中不自动进剪贴板，需手动 Cmd+C 复制。
+copy-on-select = false
+
+# 复制时去掉每行行尾空白，粘贴代码/命令更干净。
+clipboard-trim-trailing-spaces = true
 
 # 更大的滚动回溯缓冲（10MB），方便回看长日志。
 scrollback-limit = 10000000

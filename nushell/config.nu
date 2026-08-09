@@ -1,4 +1,5 @@
 $env.config.cursor_shape.emacs = 'block'
+$env.config.use_kitty_protocol = true # maybe detect env in linux?
 # 模拟 bash 的 yank-last-arg：Ctrl+. 把上一条命令的最后一个 token 插入到当前行光标处。
 # 简化版：只取「上一条历史命令」的最后一段，不支持连续按往前翻历史 / 选第 N 个参数。
 # 依赖 Kitty 键盘协议才能识别 Ctrl+符号（Ghostty/Kitty 支持）。
